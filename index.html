@@ -81,7 +81,8 @@
         .input-group input[type="email"],
         .input-group input[type="tel"],
         .input-group input[type="number"],
-        .input-group select {
+        .input-group select,
+        .input-group textarea { /* Added textarea */
             width: 100%;
             padding: 0.75rem;
             border: 1px solid #cbd5e1; /* Gray-300 */
@@ -95,7 +96,8 @@
         .input-group input[type="email"]:focus,
         .input-group input[type="tel"]:focus,
         .input-group input[type="number"]:focus,
-        .input-group select:focus {
+        .input-group select:focus,
+        .input-group textarea:focus { /* Added textarea */
             outline: none;
             border-color: #3b82f6; /* Blue-500 */
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
@@ -297,7 +299,6 @@
 <body>
 
     <div class="funnel-container">
-        <!-- Header -->
         <div class="p-6 pb-0 text-center">
             <div class="logo-container">
                 <span class="logo-heart">❤️</span>
@@ -306,22 +307,18 @@
             <h1 class="text-3xl font-extrabold text-blue-700">Plano de Saúde Ideal</h1>
         </div>
 
-        <!-- Progress Bar -->
         <div class="progress-bar-container">
             <div class="progress-bar-fill" id="progressBar"></div>
         </div>
 
-        <!-- Funnel Steps -->
         <div id="funnelSteps">
-            <!-- Step 1: Welcome -->
             <div class="step-content" data-step="1">
                 <i class="fas fa-hand-holding-heart text-6xl text-blue-500 mb-6"></i>
                 <h2>Encontre o Plano de Saúde Ideal para Você!</h2>
                 <p>Responda algumas perguntas rápidas e descubra as melhores opções de plano de saúde personalizadas para suas necessidades e de sua família.</p>
-                <button class="btn-primary next-step px-8 py-3 text-xl rounded-full">Começar <i class="fas fa-arrow-right ml-2"></i></button>
+                <!-- O botão "Começar" foi removido daqui, mantendo apenas o botão de navegação abaixo -->
             </div>
 
-            <!-- Step 2: Contact Info -->
             <div class="step-content hidden" data-step="2">
                 <i class="fas fa-user-circle text-6xl text-blue-500 mb-6"></i>
                 <h2>Para começarmos, quais são seus dados?</h2>
@@ -341,7 +338,6 @@
                 </div>
             </div>
 
-            <!-- Step 3: Tipo de Plano -->
             <div class="step-content hidden" data-step="3">
                 <i class="fas fa-briefcase text-6xl text-blue-500 mb-6"></i>
                 <h2>Você busca um plano para pessoa física ou empresarial?</h2>
@@ -355,9 +351,12 @@
                         Empresarial
                     </label>
                 </div>
+                <div class="input-group w-full max-w-md hidden" id="documentoGroup">
+                    <label for="documento" id="documentoLabel"></label>
+                    <input type="text" id="documento" name="documento" class="rounded-lg">
+                </div>
             </div>
 
-            <!-- Step 4: Demographics -->
             <div class="step-content hidden" data-step="4">
                 <i class="fas fa-users text-6xl text-blue-500 mb-6"></i>
                 <h2>Quantas pessoas você quer incluir no plano?</h2>
@@ -371,13 +370,12 @@
                         <input type="number" id="criancas" name="criancas" min="0" value="0" class="rounded-lg">
                     </div>
                     <div class="input-group">
-                        <label for="idadeTitular">Idade do titular do plano:</label>
-                        <input type="number" id="idadeTitular" name="idadeTitular" min="18" placeholder="Ex: 30" class="rounded-lg">
+                        <label for="idadesAdultos">Idades de todos os adultos (separadas por vírgula):</label>
+                        <textarea id="idadesAdultos" name="idadesAdultos" rows="3" placeholder="Ex: 30, 45, 52" class="rounded-lg"></textarea>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 5: Location -->
             <div class="step-content hidden" data-step="5">
                 <i class="fas fa-map-marker-alt text-6xl text-blue-500 mb-6"></i>
                 <h2>Qual a sua região de atendimento preferencial?</h2>
@@ -422,7 +420,6 @@
                 </div>
             </div>
 
-            <!-- Step 6: Plan Priorities -->
             <div class="step-content hidden" data-step="6">
                 <i class="fas fa-clipboard-list text-6xl text-blue-500 mb-6"></i>
                 <h2>O que é mais importante para você em um plano?</h2>
@@ -432,20 +429,20 @@
                         Cobertura Hospitalar
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="prioridades" value="ambulatorial">
-                        Consultas e Exames (Ambulatorial)
+                        <input type="checkbox" name="prioridades" value="valores">
+                        Valores (Custo)
                     </label>
                     <label class="checkbox-item">
                         <input type="checkbox" name="prioridades" value="odontologia">
                         Odontologia
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="prioridades" value="acomodacao">
-                        Acomodação (Enfermaria/Apartamento)
+                        <input type="checkbox" name="prioridades" value="enfermaria">
+                        Acomodação: Enfermaria
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="prioridades" value="reembolso">
-                        Reembolso
+                        <input type="checkbox" name="prioridades" value="apartamento">
+                        Acomodação: Apartamento
                     </label>
                 </div>
                 <div class="input-group w-full max-w-md">
@@ -454,7 +451,6 @@
                 </div>
             </div>
 
-            <!-- Step 7: Current Situation -->
             <div class="step-content hidden" data-step="7">
                 <i class="fas fa-info-circle text-6xl text-blue-500 mb-6"></i>
                 <h2>Você já possui plano de saúde?</h2>
@@ -478,7 +474,6 @@
                 </div>
             </div>
 
-            <!-- Step 8: Summary & Contact -->
             <div class="step-content hidden" data-step="8">
                 <i class="fas fa-check-circle text-6xl text-green-500 mb-6"></i>
                 <h2>Seu Perfil de Plano Ideal</h2>
@@ -489,9 +484,10 @@
                     <p><strong>E-mail:</strong> <span id="summaryEmail"></span></p>
                     <p><strong>Telefone:</strong> <span id="summaryTelefone"></span></p>
                     <p><strong>Tipo de Plano:</strong> <span id="summaryTipoPlano"></span></p>
+                    <p><strong>Documento:</strong> <span id="summaryDocumento"></span></p>
                     <p><strong>Adultos:</strong> <span id="summaryAdultos"></span></p>
                     <p><strong>Crianças:</strong> <span id="summaryCriancas"></span></p>
-                    <p><strong>Idade Titular:</strong> <span id="summaryIdadeTitular"></span></p>
+                    <p><strong>Idades Adultos:</strong> <span id="summaryIdadesAdultos"></span></p>
                     <p><strong>Localização:</strong> <span id="summaryLocalizacao"></span></p>
                     <p><strong>Prioridades:</strong> <span id="summaryPrioridades"></span></p>
                     <p><strong>Rede Específica:</strong> <span id="summaryRedeEspec"></span></p>
@@ -504,7 +500,6 @@
             </div>
         </div>
 
-        <!-- Navigation Buttons -->
         <div class="navigation-buttons">
             <button class="prev-step prev hidden"><i class="fas fa-arrow-left mr-2"></i> Anterior</button>
             <button class="next-step next">Próximo <i class="fas fa-arrow-right ml-2"></i></button>
@@ -519,19 +514,22 @@
         const whatsappCta = document.getElementById('whatsappCta');
         const operadoraAtualGroup = document.getElementById('operadoraAtualGroup');
         const planoAtualRadios = document.querySelectorAll('input[name="planoAtual"]');
-        const tipoPlanoRadios = document.querySelectorAll('input[name="tipoPlano"]'); // New radio group
+        const tipoPlanoRadios = document.querySelectorAll('input[name="tipoPlano"]');
+        const documentoGroup = document.getElementById('documentoGroup');
+        const documentoLabel = document.getElementById('documentoLabel');
+        const documentoInput = document.getElementById('documento');
+        const idadesAdultosTextarea = document.getElementById('idadesAdultos');
+
 
         let currentStep = 0;
-        const totalSteps = funnelSteps.length; // Will be 8 now
-        const formData = {}; // Object to store collected data
+        const totalSteps = funnelSteps.length;
+        const formData = {};
 
-        // Function to update progress bar
         function updateProgressBar() {
             const progress = (currentStep / (totalSteps - 1)) * 100;
             progressBar.style.width = `${progress}%`;
         }
 
-        // Function to show a specific step
         function showStep(stepIndex) {
             funnelSteps.forEach((step, index) => {
                 step.classList.add('hidden');
@@ -540,15 +538,19 @@
                 }
             });
 
-            // Update button visibility
-            prevButton.classList.toggle('hidden', stepIndex === 0 || stepIndex === 1); // Hide prev on welcome and first actual step
+            prevButton.classList.toggle('hidden', stepIndex === 0 || stepIndex === 1);
             nextButton.classList.toggle('hidden', stepIndex === totalSteps - 1);
             whatsappCta.classList.toggle('hidden', stepIndex !== totalSteps - 1);
 
-            // Change text of next button on the last but one step
-            if (stepIndex === totalSteps - 2) { // Now totalSteps - 2 is step 6
+            // Special handling for the "Próximo" button on the first step
+            if (stepIndex === 0) {
+                // No text in the button on the very first step, as per request
+                nextButton.innerHTML = ''; // Keep it empty or set a specific icon if desired
+                nextButton.classList.remove('fa-arrow-right', 'ml-2'); // Remove arrow if it was there
+                nextButton.textContent = 'Começar'; // Set the text to "Começar"
+            } else if (stepIndex === totalSteps - 2) {
                 nextButton.textContent = 'Ver Resumo';
-                nextButton.classList.remove('fa-arrow-right'); // Remove icon if present
+                nextButton.classList.remove('fa-arrow-right');
             } else {
                 nextButton.innerHTML = 'Próximo <i class="fas fa-arrow-right ml-2"></i>';
             }
@@ -556,12 +558,11 @@
             updateProgressBar();
         }
 
-        // Function to validate current step
         function validateStep(stepIndex) {
             let isValid = true;
             const currentStepElement = funnelSteps[stepIndex];
 
-            if (stepIndex === 1) { // Contact Info (Step 2)
+            if (stepIndex === 1) { // Step 2: Contact Info
                 const nome = currentStepElement.querySelector('#nome').value.trim();
                 const email = currentStepElement.querySelector('#email').value.trim();
                 const telefone = currentStepElement.querySelector('#telefone').value.trim();
@@ -572,34 +573,50 @@
                     isValid = false;
                     alert('Por favor, insira um e-mail válido.');
                 }
-            } else if (stepIndex === 2) { // Tipo de Plano (NEW Step 3)
+            } else if (stepIndex === 2) { // Step 3: Tipo de Plano
                 const selectedOption = currentStepElement.querySelector('input[name="tipoPlano"]:checked');
                 if (!selectedOption) {
                     isValid = false;
                     alert('Por favor, selecione se o plano é para pessoa física ou empresarial.');
+                } else if (!documentoGroup.classList.contains('hidden') && !documentoInput.value.trim()) {
+                    isValid = false;
+                    alert(`Por favor, preencha o campo de ${documentoLabel.textContent.toLowerCase().replace(':','')}.`);
                 }
-            } else if (stepIndex === 3) { // Demographics (NEW Step 4)
+            } else if (stepIndex === 3) { // Step 4: Demographics
                 const adultos = currentStepElement.querySelector('#adultos').value;
                 const criancas = currentStepElement.querySelector('#criancas').value;
-                const idadeTitular = currentStepElement.querySelector('#idadeTitular').value;
-                if (adultos < 1 || idadeTitular < 18) {
+                const idadesAdultos = idadesAdultosTextarea.value.trim();
+
+                if (adultos < 1) {
                     isValid = false;
-                    alert('Por favor, insira um número válido de adultos (mín. 1) e idade do titular (mín. 18).');
+                    alert('Por favor, insira um número válido de adultos (mín. 1).');
+                } else if (!idadesAdultos) {
+                    isValid = false;
+                    alert('Por favor, insira as idades de todos os adultos.');
+                } else {
+                    const agesArray = idadesAdultos.split(',').map(age => parseInt(age.trim()));
+                    if (agesArray.some(isNaN) || agesArray.some(age => age < 0)) {
+                        isValid = false;
+                        alert('Por favor, insira idades válidas para os adultos (números separados por vírgula).');
+                    } else if (agesArray.length !== parseInt(adultos)) {
+                        isValid = false;
+                        alert(`O número de idades inseridas (${agesArray.length}) não corresponde ao número de adultos (${adultos}).`);
+                    }
                 }
-            } else if (stepIndex === 4) { // Location (NEW Step 5)
+            } else if (stepIndex === 4) { // Step 5: Location
                 const estado = currentStepElement.querySelector('#estado').value;
                 const cidade = currentStepElement.querySelector('#cidade').value.trim();
                 if (!estado || !cidade) {
                     isValid = false;
                     alert('Por favor, selecione seu estado e digite sua cidade.');
                 }
-            } else if (stepIndex === 5) { // Plan Priorities (NEW Step 6)
+            } else if (stepIndex === 5) { // Step 6: Plan Priorities
                 const selectedPriorities = currentStepElement.querySelectorAll('input[name="prioridades"]:checked');
                 if (selectedPriorities.length === 0) {
                     isValid = false;
                     alert('Por favor, selecione pelo menos uma prioridade para o plano.');
                 }
-            } else if (stepIndex === 6) { // Current Situation (NEW Step 7)
+            } else if (stepIndex === 6) { // Step 7: Current Situation
                 const selectedOption = currentStepElement.querySelector('input[name="planoAtual"]:checked');
                 if (!selectedOption) {
                     isValid = false;
@@ -612,38 +629,38 @@
             return isValid;
         }
 
-        // Function to collect data from current step
         function collectData(stepIndex) {
             const currentStepElement = funnelSteps[stepIndex];
             if (stepIndex === 1) { // Contact Info
                 formData.nome = currentStepElement.querySelector('#nome').value.trim();
                 formData.email = currentStepElement.querySelector('#email').value.trim();
                 formData.telefone = currentStepElement.querySelector('#telefone').value.trim();
-            } else if (stepIndex === 2) { // Tipo de Plano (NEW Step 3)
+            } else if (stepIndex === 2) { // Tipo de Plano
                 const selectedOption = currentStepElement.querySelector('input[name="tipoPlano"]:checked');
                 formData.tipoPlano = selectedOption ? (selectedOption.value === 'fisica' ? 'Pessoa Física' : 'Empresarial') : 'Não informado';
-            } else if (stepIndex === 3) { // Demographics (NEW Step 4)
+                formData.documento = documentoInput.value.trim();
+            } else if (stepIndex === 3) { // Demographics
                 formData.adultos = currentStepElement.querySelector('#adultos').value;
                 formData.criancas = currentStepElement.querySelector('#criancas').value;
-                formData.idadeTitular = currentStepElement.querySelector('#idadeTitular').value;
-            } else if (stepIndex === 4) { // Location (NEW Step 5)
+                formData.idadesAdultos = idadesAdultosTextarea.value.trim();
+            } else if (stepIndex === 4) { // Location
                 formData.estado = currentStepElement.querySelector('#estado').value;
                 formData.cidade = currentStepElement.querySelector('#cidade').value.trim();
-            } else if (stepIndex === 5) { // Plan Priorities (NEW Step 6)
+            } else if (stepIndex === 5) { // Plan Priorities
                 formData.prioridades = Array.from(currentStepElement.querySelectorAll('input[name="prioridades"]:checked'))
                                             .map(cb => {
                                                 switch(cb.value) {
                                                     case 'hospitalar': return 'Cobertura Hospitalar';
-                                                    case 'ambulatorial': return 'Consultas e Exames';
+                                                    case 'valores': return 'Valores (Custo)';
                                                     case 'odontologia': return 'Odontologia';
-                                                    case 'acomodacao': return 'Acomodação';
-                                                    case 'reembolso': return 'Reembolso';
+                                                    case 'enfermaria': return 'Acomodação: Enfermaria';
+                                                    case 'apartamento': return 'Acomodação: Apartamento';
                                                     default: return cb.value;
                                                 }
                                             })
                                             .join(', ') || 'Nenhuma selecionada';
                 formData.redeCredenciada = currentStepElement.querySelector('#redeCredenciada').value.trim();
-            } else if (stepIndex === 6) { // Current Situation (NEW Step 7)
+            } else if (stepIndex === 6) { // Current Situation
                 const selectedOption = currentStepElement.querySelector('input[name="planoAtual"]:checked');
                 formData.planoAtual = selectedOption ? selectedOption.value : 'Não informado';
                 if (formData.planoAtual === 'sim_individual') formData.planoAtual = 'Sim, individual/familiar';
@@ -654,22 +671,21 @@
             }
         }
 
-        // Function to populate summary
         function populateSummary() {
             document.getElementById('summaryNome').textContent = formData.nome || 'Não informado';
             document.getElementById('summaryEmail').textContent = formData.email || 'Não informado';
             document.getElementById('summaryTelefone').textContent = formData.telefone || 'Não informado';
-            document.getElementById('summaryTipoPlano').textContent = formData.tipoPlano || 'Não informado'; // New summary field
+            document.getElementById('summaryTipoPlano').textContent = formData.tipoPlano || 'Não informado';
+            document.getElementById('summaryDocumento').textContent = formData.documento || 'Não informado';
             document.getElementById('summaryAdultos').textContent = formData.adultos || 'Não informado';
             document.getElementById('summaryCriancas').textContent = formData.criancas || 'Não informado';
-            document.getElementById('summaryIdadeTitular').textContent = formData.idadeTitular || 'Não informado';
+            document.getElementById('summaryIdadesAdultos').textContent = formData.idadesAdultos || 'Não informado';
             document.getElementById('summaryLocalizacao').textContent = `${formData.cidade || 'Não informado'}, ${formData.estado || ''}`.trim();
             document.getElementById('summaryPrioridades').textContent = formData.prioridades || 'Não informado';
             document.getElementById('summaryRedeEspec').textContent = formData.redeCredenciada || 'Nenhuma';
             document.getElementById('summaryPlanoAtual').textContent = formData.planoAtual || 'Não informado';
             document.getElementById('summaryOperadoraAtual').textContent = formData.operadoraAtual || 'Não informada';
 
-            // Generate WhatsApp message
             const whatsappMessage = `Olá! Tenho interesse em um plano de saúde e gostaria de mais informações.
             
 *Dados de Contato:*
@@ -679,11 +695,12 @@ Telefone: ${formData.telefone || 'Não informado'}
 
 *Tipo de Plano Desejado:*
 ${formData.tipoPlano || 'Não informado'}
+${formData.tipoPlano === 'Pessoa Física' ? 'CPF' : 'CNPJ'}: ${formData.documento || 'Não informado'}
 
 *Perfil Familiar:*
 Adultos: ${formData.adultos || 'Não informado'}
 Crianças: ${formData.criancas || 'Não informado'}
-Idade Titular: ${formData.idadeTitular || 'Não informado'}
+Idades Adultos: ${formData.idadesAdultos || 'Não informado'}
 
 *Localização:*
 Cidade: ${formData.cidade || 'Não informado'}
@@ -700,20 +717,15 @@ Operadora Atual: ${formData.operadoraAtual || 'Não informada'}
 Aguardando seu contato!`;
 
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            // Replace with your actual WhatsApp number
             whatsappCta.href = `https://wa.me/+5511981101586?text=${encodedMessage}`;
         }
 
-        // Event Listeners for Navigation
         nextButton.addEventListener('click', () => {
             if (currentStep < totalSteps - 1) {
                 if (validateStep(currentStep)) {
-                    collectData(currentStep); // Collect data before moving
+                    collectData(currentStep);
                     currentStep++;
                     showStep(currentStep);
-                    if (currentStep === totalSteps - 1) { // If it's the summary step
-                        populateSummary();
-                    }
                 }
             }
         });
@@ -725,39 +737,51 @@ Aguardando seu contato!`;
             }
         });
 
-        // Event listener for radio button to show/hide operadora input
         planoAtualRadios.forEach(radio => {
             radio.addEventListener('change', (event) => {
                 if (event.target.value.startsWith('sim')) {
                     operadoraAtualGroup.classList.remove('hidden');
                 } else {
                     operadoraAtualGroup.classList.add('hidden');
-                    document.getElementById('operadoraAtual').value = ''; // Clear input if hidden
+                    document.getElementById('operadoraAtual').value = '';
                 }
             });
         });
 
-        // Event listener for checkbox selection styling
+        tipoPlanoRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                if (event.target.value === 'fisica') {
+                    documentoGroup.classList.remove('hidden');
+                    documentoLabel.textContent = 'CPF:';
+                    documentoInput.placeholder = 'Digite seu CPF';
+                    documentoInput.type = 'text';
+                } else if (event.target.value === 'empresarial') {
+                    documentoGroup.classList.remove('hidden');
+                    documentoLabel.textContent = 'CNPJ:';
+                    documentoInput.placeholder = 'Digite o CNPJ da empresa';
+                    documentoInput.type = 'text';
+                } else {
+                    documentoGroup.classList.add('hidden');
+                    documentoInput.value = '';
+                }
+            });
+        });
+
         document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', (event) => {
                 event.target.closest('.checkbox-item').classList.toggle('selected', event.target.checked);
             });
         });
 
-        // Event listener for radio selection styling (for all radio groups)
         document.querySelectorAll('.radio-item input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', (event) => {
-                // Remove 'selected' from all radio items in the same group
                 document.querySelectorAll(`input[name="${event.target.name}"]`).forEach(otherRadio => {
                     otherRadio.closest('.radio-item').classList.remove('selected');
                 });
-                // Add 'selected' to the currently checked radio item
                 event.target.closest('.radio-item').classList.add('selected');
             });
         });
 
-
-        // Initial setup
         showStep(currentStep);
     </script>
 
