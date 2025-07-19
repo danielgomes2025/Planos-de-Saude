@@ -541,15 +541,19 @@
             });
 
             prevButton.classList.toggle('hidden', stepIndex === 0 || stepIndex === 1);
-            // nextButton is explicitly hidden or shown via style.display below
-            whatsappCta.style.display = (stepIndex === totalSteps - 1) ? 'inline-flex' : 'none';
-
+            
             // Control the next button's display and text
             if (stepIndex === totalSteps - 1) { // If it's the summary step
                 nextButton.style.display = 'none'; // Hide next button on the final summary page
+                whatsappCta.style.display = 'inline-flex'; // Show WhatsApp CTA button
             } else {
                 nextButton.style.display = 'inline-flex'; // Show next button
-                if (stepIndex === totalSteps - 2) { // If it's the step before summary
+                whatsappCta.style.display = 'none'; // Hide WhatsApp CTA button on other steps
+
+                if (stepIndex === 0) { // First step
+                    nextButton.textContent = 'Próximo'; // Set text to "Próximo"
+                    nextButton.classList.remove('fa-arrow-right'); // Remove arrow from first "Próximo"
+                } else if (stepIndex === totalSteps - 2) { // Step before summary
                     nextButton.textContent = 'Ver Resumo';
                     nextButton.classList.remove('fa-arrow-right'); // Remove arrow
                 } else {
@@ -728,6 +732,9 @@ Aguardando seu contato!`;
                     collectData(currentStep);
                     currentStep++;
                     showStep(currentStep);
+                    if (currentStep === totalSteps - 1) { // If it's the summary step
+                        populateSummary(); // Call populateSummary here to ensure data is fresh
+                    }
                 }
             }
         });
