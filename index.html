@@ -221,6 +221,8 @@
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
+            z-index: 10; /* Ensure it's on top */
+            position: relative; /* Ensure z-index works */
         }
         .final-cta-button:hover {
             transform: translateY(-3px);
@@ -539,20 +541,20 @@
             });
 
             prevButton.classList.toggle('hidden', stepIndex === 0 || stepIndex === 1);
-            nextButton.classList.toggle('hidden', stepIndex === totalSteps - 1);
-            whatsappCta.classList.toggle('hidden', stepIndex !== totalSteps - 1);
+            // nextButton is explicitly hidden or shown via style.display below
+            whatsappCta.style.display = (stepIndex === totalSteps - 1) ? 'inline-flex' : 'none';
 
-            // Special handling for the "Próximo" button on the first step
-            if (stepIndex === 0) {
-                // No text in the button on the very first step, as per request
-                nextButton.innerHTML = ''; // Keep it empty or set a specific icon if desired
-                nextButton.classList.remove('fa-arrow-right', 'ml-2'); // Remove arrow if it was there
-                nextButton.textContent = 'Começar'; // Set the text to "Começar"
-            } else if (stepIndex === totalSteps - 2) {
-                nextButton.textContent = 'Ver Resumo';
-                nextButton.classList.remove('fa-arrow-right');
+            // Control the next button's display and text
+            if (stepIndex === totalSteps - 1) { // If it's the summary step
+                nextButton.style.display = 'none'; // Hide next button on the final summary page
             } else {
-                nextButton.innerHTML = 'Próximo <i class="fas fa-arrow-right ml-2"></i>';
+                nextButton.style.display = 'inline-flex'; // Show next button
+                if (stepIndex === totalSteps - 2) { // If it's the step before summary
+                    nextButton.textContent = 'Ver Resumo';
+                    nextButton.classList.remove('fa-arrow-right'); // Remove arrow
+                } else {
+                    nextButton.innerHTML = 'Próximo <i class="fas fa-arrow-right ml-2"></i>'; // Default text with arrow
+                }
             }
 
             updateProgressBar();
